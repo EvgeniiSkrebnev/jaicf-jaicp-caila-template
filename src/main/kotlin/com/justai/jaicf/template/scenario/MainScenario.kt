@@ -11,20 +11,62 @@ val mainScenario = Scenario {
         }
         action {
             reactions.run {
-                image("https://media.giphy.com/media/ICOgUNjpvO0PC/source.gif")
                 sayRandom(
-                    "Hello! How can I help?",
-                    "Hi there! How can I help you?"
+                    "Здравствуй! Я бот для проверки знания Kotlin. Для продолжения нажми на кнопку \"Начать тестирование\"",
+                    "Привет! Начнем испытание? Нажимай на кнопку \"Начать тестирование\""
                 )
-                buttons(
-                    "Help me!",
-                    "How are you?",
-                    "What is your name?"
-                )
+                buttons("Начать тестирование")
             }
         }
     }
-
+    state ("startTest"){
+        activators {
+            regex("Начать тестирование.")
+        }
+        action {
+            var score = 0
+            score++
+            reactions.say("Вам предлагается пройти тестирование на знание Kotlin. Тест состоит из 20 вопросов с выбором правильного ответа.")
+            reactions.say("Для продолжения нажми на кнопку.")
+            reactions.buttons("Готов")
+            reactions.say("$score")
+        }
+    }
+    state ("testQ1") {
+        activators {
+            regex("Готов")
+        }
+        action {
+            reactions.run {
+                say("1. Каков корректный синтаксис для вывода фразы ‘Hello World’?")
+                buttons("print(”Hello World”)",
+                "println(”Hello World”)",
+                "Console.WriteLine(”Hello World”)")
+            }
+        }
+    }
+    state ("testQ1RA") {
+        activators {
+            regex("println(”Hello World”)")
+        }
+        action {
+            reactions.go("/testQ2")
+        }
+    }
+    state ("testQ2") {
+        activators {
+            regex("print(”Hello World”)")
+            regex("Console.WriteLine(”Hello World”)")
+        }
+        action {
+            reactions.run {
+                say("2. Как обозначается комментарий в коде?")
+                buttons("#Комментарий”)",
+                    "// Коментарий",
+                    "\\\\ Коментарий")
+            }
+        }
+    }
     state("bye") {
         activators {
             intent("Bye")
@@ -38,17 +80,6 @@ val mainScenario = Scenario {
             reactions.image("https://media.giphy.com/media/EE185t7OeMbTy/source.gif")
         }
     }
-
-    state("smalltalk", noContext = true) {
-        activators {
-            anyIntent()
-        }
-
-        action(caila) {
-            activator.topIntent.answer?.let { reactions.say(it) } ?: reactions.go("/fallback")
-        }
-    }
-
     fallback {
         reactions.sayRandom(
             "Sorry, I didn't get that...",

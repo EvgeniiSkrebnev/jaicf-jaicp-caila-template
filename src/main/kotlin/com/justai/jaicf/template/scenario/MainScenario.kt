@@ -21,15 +21,15 @@ val mainScenario = Scenario {
     }
     state ("startTest"){
         activators {
-            regex("Начать тестирование.")
+            regex("Начать тестирование")
         }
         action {
             var score = 0
             score++
             reactions.say("Вам предлагается пройти тестирование на знание Kotlin. Тест состоит из 20 вопросов с выбором правильного ответа.")
             reactions.say("Для продолжения нажми на кнопку.")
-            reactions.buttons("Готов")
             reactions.say("$score")
+            reactions.buttons("Готов")
         }
     }
     state ("testQ1") {
@@ -47,7 +47,7 @@ val mainScenario = Scenario {
     }
     state ("testQ1RA") {
         activators {
-            regex("println(”Hello World”)")
+            regex("println\\(”Hello World”\\)")
         }
         action {
             reactions.go("/testQ2")
@@ -55,13 +55,13 @@ val mainScenario = Scenario {
     }
     state ("testQ2") {
         activators {
-            regex("print(”Hello World”)")
-            regex("Console.WriteLine(”Hello World”)")
+            regex("print\\(”Hello World”\\)")
+            regex("Console.WriteLine\\(”Hello World”\\)")
         }
         action {
             reactions.run {
                 say("2. Как обозначается комментарий в коде?")
-                buttons("#Комментарий”)",
+                buttons("#Комментарий",
                     "// Коментарий",
                     "\\\\ Коментарий")
             }

@@ -2,11 +2,11 @@ package com.justai.jaicf.template.scenario
 
 import com.justai.jaicf.activator.caila.caila
 import com.justai.jaicf.builder.Scenario
+import com.justai.jaicf.template.countScore
 
 // Вопросная часть бота состоит из 2 повторяюшихся стейтов: это сам вопрос и стейт правильного ответа на вопрос.
 // При правильном ответе на вопрос производится переход в стейт с пометкой RA(Right Answer), в котором счетчик увеличивается на 1.
 // При неправильном ответе производится переход сразу в стейт следующего вопроса.
-
 
 val mainScenario = Scenario {
     state("start") {
@@ -15,6 +15,7 @@ val mainScenario = Scenario {
             intent("Hello")
         }
         action {
+            countScore.answersCount = 0
             reactions.run {
                 sayRandom(
                     "Здравствуй! Я бот для проверки знания Kotlin. Для продолжения нажми на кнопку \"Начать тестирование\"",
@@ -22,6 +23,9 @@ val mainScenario = Scenario {
                 )
                 buttons("Начать тестирование")
             }
+            countScore.answersCount = 0
+            countScore.answersCount ++
+            reactions.say("${countScore.answersCount}")
         }
     }
     state ("startTest"){
@@ -52,6 +56,8 @@ val mainScenario = Scenario {
             regex("println\\(”Hello World”\\)")
         }
         action {
+            countScore.answersCount ++
+            reactions.say("${countScore.answersCount}")
             reactions.go("/testQ2")
         }
     }
@@ -74,6 +80,8 @@ val mainScenario = Scenario {
             regex("// Комментарий")
         }
         action {
+            countScore.answersCount ++
+            reactions.say("${countScore.answersCount}")
             reactions.go("/testQ3")
         }
     }
@@ -463,13 +471,7 @@ val mainScenario = Scenario {
             regex("MIT")
         }
         action {
-            val score = 10
-            when (score) {
-                in 1..10 -> reactions.say("${score}/20 - это так себе")
-                in 11..15 -> reactions.say("${score}/20 - это неплохо")
-                in 16..19 -> reactions.say("${score}/20 - это хорошо")
-                20 -> reactions.say("${score}/20 - это Отлично")
-            }
+
         }
     }
     state("bye") {

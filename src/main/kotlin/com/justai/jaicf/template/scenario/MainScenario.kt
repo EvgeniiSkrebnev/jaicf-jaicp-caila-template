@@ -3,6 +3,11 @@ package com.justai.jaicf.template.scenario
 import com.justai.jaicf.activator.caila.caila
 import com.justai.jaicf.builder.Scenario
 
+// Вопросная часть бота состоит из 2 повторяюшихся стейтов: это сам вопрос и стейт правильного ответа на вопрос.
+// При правильном ответе на вопрос производится переход в стейт с пометкой RA(Right Answer), в котором счетчик увеличивается на 1.
+// При неправильном ответе производится переход сразу в стейт следующего вопроса.
+
+
 val mainScenario = Scenario {
     state("start") {
         activators {

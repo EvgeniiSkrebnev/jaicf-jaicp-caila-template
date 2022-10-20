@@ -21,7 +21,7 @@ val mainScenario = Scenario {
             reactions.run {
                 sayRandom(
                     "Здравствуй! Я бот для проверки знания Kotlin. Для продолжения нажми на кнопку \"Начать тестирование\"",
-                    "Привет! Начнем тест? Нажимай на кнопку \"Начать тестирование\""
+                    "Привет! Начнем тест на знание Kotlin? Нажимай на кнопку \"Начать тестирование\""
                 )
                 buttons("Начать тестирование")
             }
@@ -363,14 +363,14 @@ val mainScenario = Scenario {
         action {
             reactions.run{
                 say("Какая разница между var a: String? = “Hi!” и var b: String = “Hi!”")
-                buttons("Нет разницы", "a может иметь значене null", "Вызов a приведет к ошибке")
+                buttons("Нет разницы", "a может иметь значение null", "Вызов a приведет к ошибке")
             }
         }
     }
 
     state ("testQ14RA"){
         activators{
-            regex("a может иметь значене null")
+            regex("a может иметь значение null")
         }
         action {
             countScore.answersCount ++

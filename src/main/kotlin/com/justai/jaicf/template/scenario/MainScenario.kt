@@ -27,6 +27,7 @@ val mainScenario = Scenario {
             }
         }
     }
+
     state ("startTest"){
         activators {
             regex("Начать тестирование")
@@ -37,6 +38,7 @@ val mainScenario = Scenario {
             reactions.buttons("Готов")
         }
     }
+
     state ("testQ1") {
         activators {
             regex("Готов")
@@ -50,6 +52,7 @@ val mainScenario = Scenario {
             }
         }
     }
+
     state ("testQ1RA") {
         activators {
             regex("println\\(”Hello World”\\)")
@@ -60,6 +63,7 @@ val mainScenario = Scenario {
             reactions.go("/testQ2")
         }
     }
+
     state ("testQ2") {
         activators {
             regex("print\\(”Hello World”\\)")
@@ -74,6 +78,7 @@ val mainScenario = Scenario {
             }
         }
     }
+
     state ("testQ2RA"){
         activators{
             regex("// Комментарий")
@@ -83,6 +88,7 @@ val mainScenario = Scenario {
             reactions.go("/testQ3")
         }
     }
+
     state ("testQ3") {
         activators {
             regex("! Комментарий")
@@ -97,6 +103,7 @@ val mainScenario = Scenario {
             }
         }
     }
+
     state ("testQ3RA"){
         activators{
             regex("Var-изменяемая, val-неизменяемая")
@@ -106,6 +113,7 @@ val mainScenario = Scenario {
             reactions.go("/testQ4")
         }
     }
+
     state ("testQ4") {
         activators {
             regex("Val-изменяемая, var-неизменяемая")
@@ -120,6 +128,7 @@ val mainScenario = Scenario {
             }
         }
     }
+
     state ("testQ4RA"){
         activators{
             regex("if \\(x > y\\)")
@@ -129,6 +138,7 @@ val mainScenario = Scenario {
             reactions.go("/testQ5")
         }
     }
+
     state ("testQ5") {
         activators {
             regex("if x > y")
@@ -143,6 +153,7 @@ val mainScenario = Scenario {
             }
         }
     }
+
     state ("testQ5RA"){
         activators{
             regex("while \\(x < y\\)")
@@ -152,6 +163,7 @@ val mainScenario = Scenario {
             reactions.go("/testQ6")
         }
     }
+
     state ("testQ6") {
         activators {
             regex("while x < y do")
@@ -166,6 +178,7 @@ val mainScenario = Scenario {
             }
         }
     }
+
     state ("testQ6RA"){
         activators{
             regex("1\\.\\.10")
@@ -175,6 +188,7 @@ val mainScenario = Scenario {
             reactions.go("/testQ7")
         }
     }
+
     state ("testQ7") {
         activators {
             regex("1,10")
@@ -189,6 +203,7 @@ val mainScenario = Scenario {
             }
         }
     }
+
     state ("testQ7RA"){
         activators{
             regex("val numbers = arrayOf\\(1,2,3,4,5\\)")
@@ -198,6 +213,7 @@ val mainScenario = Scenario {
             reactions.go("/testQ8")
         }
     }
+
     state ("testQ8") {
         activators {
             regex("val numbers = \\{1,2,3,4,5\\}")
@@ -212,6 +228,7 @@ val mainScenario = Scenario {
             }
         }
     }
+
     state ("testQ8RA"){
         activators{
             regex("fancyFunction\\(\\)")
@@ -221,6 +238,7 @@ val mainScenario = Scenario {
             reactions.go("/testQ9")
         }
     }
+
     state ("testQ9") {
         activators {
             regex("fancyFunction\\[\\]")
@@ -235,6 +253,7 @@ val mainScenario = Scenario {
             }
         }
     }
+
     state ("testQ9RA"){
         activators{
             regex("Двойными")
@@ -244,6 +263,7 @@ val mainScenario = Scenario {
             reactions.go("/testQ10")
         }
     }
+
     state ("testQ10") {
         activators {
             regex("Одинарными")
@@ -257,6 +277,7 @@ val mainScenario = Scenario {
             }
         }
     }
+
     state ("testQ10RA"){
         activators{
             regex("Не верно")
@@ -266,6 +287,7 @@ val mainScenario = Scenario {
             reactions.go("/testQ11")
         }
     }
+
     state ("testQ11") {
         activators {
             regex("Верно")
@@ -277,6 +299,7 @@ val mainScenario = Scenario {
             }
         }
     }
+
     state ("testQ11RA"){
         activators{
             regex("\\$")
@@ -286,6 +309,7 @@ val mainScenario = Scenario {
             reactions.go("/testQ12")
         }
     }
+
     state ("testQ12") {
         activators {
             regex("%")
@@ -298,6 +322,7 @@ val mainScenario = Scenario {
             }
         }
     }
+
     state ("testQ12RA"){
         activators{
             regex("Да")
@@ -307,6 +332,7 @@ val mainScenario = Scenario {
             reactions.go("/testQ13")
         }
     }
+
     state ("testQ13") {
         activators {
             regex("Нет")
@@ -318,6 +344,7 @@ val mainScenario = Scenario {
             }
         }
     }
+
     state ("testQ13RA"){
         activators{
             regex("var i: Int = 13")
@@ -327,6 +354,7 @@ val mainScenario = Scenario {
             reactions.go("/testQ14")
         }
     }
+
     state ("testQ14") {
         activators {
             regex("var int\\(i\\) = 13")
@@ -339,6 +367,7 @@ val mainScenario = Scenario {
             }
         }
     }
+
     state ("testQ14RA"){
         activators{
             regex("a может иметь значене null")
@@ -348,6 +377,7 @@ val mainScenario = Scenario {
             reactions.go("/testQ15")
         }
     }
+
     state ("testQ15") {
         activators {
             regex("Нет разницы")
@@ -362,6 +392,7 @@ val mainScenario = Scenario {
             }
         }
     }
+
     state ("testQ15RA"){
         activators{
             regex("fun sum\\(x: Int, y: Int\\): Int")
@@ -371,6 +402,7 @@ val mainScenario = Scenario {
             reactions.go("/testQ16")
         }
     }
+
     state ("testQ16") {
         activators {
             regex("function sum\\(x: Int, y: Int\\): Int")
@@ -384,6 +416,7 @@ val mainScenario = Scenario {
             }
         }
     }
+
     state ("testQ16RA"){
         activators{
             regex("false")
@@ -393,6 +426,7 @@ val mainScenario = Scenario {
             reactions.go("/testQ17")
         }
     }
+
     state ("testQ17") {
         activators {
             regex("Null Pointer Exception")
@@ -407,6 +441,7 @@ val mainScenario = Scenario {
             }
         }
     }
+
     state ("testQ17RA"){
         activators{
             regex("val x = if \\(a\\) b else c")
@@ -416,6 +451,7 @@ val mainScenario = Scenario {
             reactions.go("/testQ18")
         }
     }
+
     state ("testQ18") {
         activators {
             regex("val x = a \\? b : c")
@@ -429,6 +465,7 @@ val mainScenario = Scenario {
             }
         }
     }
+
     state ("testQ18RA"){
         activators{
             regex("У list нет метода add")
@@ -438,6 +475,7 @@ val mainScenario = Scenario {
             reactions.go("/testQ19")
         }
     }
+
     state ("testQ19") {
         activators {
             regex("\\[5,6,7\\]")
@@ -450,6 +488,7 @@ val mainScenario = Scenario {
             }
         }
     }
+
     state ("testQ19RA"){
         activators{
             regex("Лямбда выражение")
@@ -459,6 +498,7 @@ val mainScenario = Scenario {
             reactions.go("/testQ20")
         }
     }
+
     state ("testQ20") {
         activators {
             regex("Тильда выражение")
@@ -471,6 +511,7 @@ val mainScenario = Scenario {
             }
         }
     }
+
     state ("testQ20RA"){
         activators{
             regex("Apache 2")
@@ -480,6 +521,7 @@ val mainScenario = Scenario {
             reactions.go("/testEnd")
         }
     }
+
     state ("testEnd"){
         activators {
             regex("GPL")
@@ -496,6 +538,7 @@ val mainScenario = Scenario {
             reactions.say("Всего доброго!")
         }
     }
+
     fallback {
         reactions.sayRandom(
             "Что-то пошло не так...",

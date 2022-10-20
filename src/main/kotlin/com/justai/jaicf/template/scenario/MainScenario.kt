@@ -4,9 +4,11 @@ import com.justai.jaicf.activator.caila.caila
 import com.justai.jaicf.builder.Scenario
 import com.justai.jaicf.template.countScore
 
-// Вопросная часть бота состоит из 2 повторяюшихся стейтов: это сам вопрос и стейт правильного ответа на вопрос.
+
+// Вопросная часть бота состоит из повторяюшихся стейтов 2 типов: это сам вопрос и стейт правильного ответа на вопрос.
 // При правильном ответе на вопрос производится переход в стейт с пометкой RA(Right Answer), в котором счетчик увеличивается на 1.
 // При неправильном ответе производится переход сразу в стейт следующего вопроса.
+
 
 val mainScenario = Scenario {
     state("start") {
@@ -15,7 +17,7 @@ val mainScenario = Scenario {
             intent("Hello")
         }
         action {
-            countScore.answersCount = 0
+            countScore.sessionScoreInit()
             reactions.run {
                 sayRandom(
                     "Здравствуй! Я бот для проверки знания Kotlin. Для продолжения нажми на кнопку \"Начать тестирование\"",
@@ -23,9 +25,6 @@ val mainScenario = Scenario {
                 )
                 buttons("Начать тестирование")
             }
-            countScore.answersCount = 0
-            countScore.answersCount ++
-            reactions.say("${countScore.answersCount}")
         }
     }
     state ("startTest"){
@@ -33,7 +32,7 @@ val mainScenario = Scenario {
             regex("Начать тестирование")
         }
         action {
-            reactions.say("Вам предлагается пройти тестирование на знание Kotlin. Тест состоит из 20 вопросов с выбором правильного ответа.")
+            reactions.say("Тебе предлагается пройти тестирование на знание Kotlin. Тест состоит из 20 вопросов с выбором правильного ответа.")
             reactions.say("Для продолжения нажми на кнопку.")
             reactions.buttons("Готов")
         }
@@ -44,7 +43,7 @@ val mainScenario = Scenario {
         }
         action {
             reactions.run {
-                say("1. Каков корректный синтаксис для вывода фразы ‘Hello World’?")
+                say("Каков корректный синтаксис для вывода фразы ‘Hello World’?")
                 buttons("print(”Hello World”)",
                 "println(”Hello World”)",
                 "Console.WriteLine(”Hello World”)")
@@ -68,7 +67,7 @@ val mainScenario = Scenario {
         }
         action {
             reactions.run {
-                say("2. Как обозначается комментарий в коде?")
+                say("Как обозначается комментарий в коде?")
                 buttons("#Комментарий",
                     "// Комментарий",
                     "! Комментарий")
@@ -81,7 +80,6 @@ val mainScenario = Scenario {
         }
         action {
             countScore.answersCount ++
-            reactions.say("${countScore.answersCount}")
             reactions.go("/testQ3")
         }
     }
@@ -104,6 +102,7 @@ val mainScenario = Scenario {
             regex("Var-изменяемая, val-неизменяемая")
         }
         action {
+            countScore.answersCount ++
             reactions.go("/testQ4")
         }
     }
@@ -126,6 +125,7 @@ val mainScenario = Scenario {
             regex("if \\(x > y\\)")
         }
         action {
+            countScore.answersCount ++
             reactions.go("/testQ5")
         }
     }
@@ -148,6 +148,7 @@ val mainScenario = Scenario {
             regex("while \\(x < y\\)")
         }
         action {
+            countScore.answersCount ++
             reactions.go("/testQ6")
         }
     }
@@ -170,6 +171,7 @@ val mainScenario = Scenario {
             regex("1\\.\\.10")
         }
         action {
+            countScore.answersCount ++
             reactions.go("/testQ7")
         }
     }
@@ -192,6 +194,7 @@ val mainScenario = Scenario {
             regex("val numbers = arrayOf\\(1,2,3,4,5\\)")
         }
         action {
+            countScore.answersCount ++
             reactions.go("/testQ8")
         }
     }
@@ -214,6 +217,7 @@ val mainScenario = Scenario {
             regex("fancyFunction\\(\\)")
         }
         action {
+            countScore.answersCount ++
             reactions.go("/testQ9")
         }
     }
@@ -236,6 +240,7 @@ val mainScenario = Scenario {
             regex("Двойными")
         }
         action {
+            countScore.answersCount ++
             reactions.go("/testQ10")
         }
     }
@@ -257,13 +262,13 @@ val mainScenario = Scenario {
             regex("Не верно")
         }
         action {
+            countScore.answersCount ++
             reactions.go("/testQ11")
         }
     }
     state ("testQ11") {
         activators {
             regex("Верно")
-            regex("")
         }
         action {
             reactions.run{
@@ -277,6 +282,7 @@ val mainScenario = Scenario {
             regex("\\$")
         }
         action {
+            countScore.answersCount ++
             reactions.go("/testQ12")
         }
     }
@@ -297,6 +303,7 @@ val mainScenario = Scenario {
             regex("Да")
         }
         action {
+            countScore.answersCount ++
             reactions.go("/testQ13")
         }
     }
@@ -316,6 +323,7 @@ val mainScenario = Scenario {
             regex("var i: Int = 13")
         }
         action {
+            countScore.answersCount ++
             reactions.go("/testQ14")
         }
     }
@@ -336,6 +344,7 @@ val mainScenario = Scenario {
             regex("a может иметь значене null")
         }
         action {
+            countScore.answersCount ++
             reactions.go("/testQ15")
         }
     }
@@ -358,6 +367,7 @@ val mainScenario = Scenario {
             regex("fun sum\\(x: Int, y: Int\\): Int")
         }
         action {
+            countScore.answersCount ++
             reactions.go("/testQ16")
         }
     }
@@ -379,6 +389,7 @@ val mainScenario = Scenario {
             regex("false")
         }
         action {
+            countScore.answersCount ++
             reactions.go("/testQ17")
         }
     }
@@ -401,6 +412,7 @@ val mainScenario = Scenario {
             regex("val x = if \\(a\\) b else c")
         }
         action {
+            countScore.answersCount ++
             reactions.go("/testQ18")
         }
     }
@@ -422,6 +434,7 @@ val mainScenario = Scenario {
             regex("У list нет метода add")
         }
         action {
+            countScore.answersCount ++
             reactions.go("/testQ19")
         }
     }
@@ -442,6 +455,7 @@ val mainScenario = Scenario {
             regex("Лямбда выражение")
         }
         action {
+            countScore.answersCount ++
             reactions.go("/testQ20")
         }
     }
@@ -462,7 +476,8 @@ val mainScenario = Scenario {
             regex("Apache 2")
         }
         action {
-            reactions.go("")
+            countScore.answersCount ++
+            reactions.go("/testEnd")
         }
     }
     state ("testEnd"){
@@ -471,37 +486,20 @@ val mainScenario = Scenario {
             regex("MIT")
         }
         action {
-
+            when (countScore.answersCount) {
+                in 1..10 -> reactions.say("Результат ${countScore.answersCount}/20 - это так себе. Нужно больше знаний.")
+                in 11..15 -> reactions.say("Результат ${countScore.answersCount}/20 - это неплохо, но есть куда расти.")
+                in 16..19 -> reactions.say("Результат ${countScore.answersCount}/20 - это хорошо, но стоит заполнить пробелы.")
+                20 -> reactions.say("Результат ${countScore.answersCount}/20 - это Отлично")
+            }
+            reactions.say("Спасибо за участие в тестирвании!")
+            reactions.say("Всего доброго!")
         }
     }
-    state("bye") {
-        activators {
-            intent("Bye")
-        }
-
-        action {
-            reactions.sayRandom(
-                "See you soon!",
-                "Bye-bye!"
-            )
-            reactions.image("https://media.giphy.com/media/EE185t7OeMbTy/source.gif")
-        }
-    }
-
-    state("smalltalk", noContext = true) {
-        activators {
-            anyIntent()
-        }
-
-        action(caila) {
-            activator.topIntent.answer?.let { reactions.say(it) } ?: reactions.go("/fallback")
-        }
-    }
-
     fallback {
         reactions.sayRandom(
-            "Sorry, I didn't get that...",
-            "Sorry, could you repeat please?"
+            "Что-то пошло не так...",
+            "Прости, но что-то пошло не так..."
         )
     }
 }
